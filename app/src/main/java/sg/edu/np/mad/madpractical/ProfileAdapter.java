@@ -13,11 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
+    private final RecyclerViewInterface rcvInterface;
     ArrayList<User> data;
     ListActivity listActivity;
 
-    public ProfileAdapter(ArrayList<User> data) {
+    public ProfileAdapter(ArrayList<User> data, RecyclerViewInterface rcvInterface) {
+
         this.data = data;
+        this.rcvInterface = rcvInterface;
     }
 
     @NonNull
@@ -25,7 +28,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
     public ProfileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_list, null, false);
-        return new ProfileViewHolder(item);
+        return new ProfileViewHolder(item, rcvInterface);
     }
 
     @Override
@@ -33,29 +36,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
         User user = data.get(position);
         holder.username.setText(user.getName());
         holder.description.setText(user.getDescription());
-
-        // ITS NOT WORKING!!!!
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(listActivity);
-                builder.setTitle("Profile")
-                        .setMessage(user.getName())
-                        .setPositiveButton("VIEW", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent intent = new Intent(listActivity, MainActivity.class);
-                                listActivity.startActivity(intent);
-                            }
-                        })
-                        .setNegativeButton("CLOSE", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        });
-            }
-        });
     }
 
     @Override

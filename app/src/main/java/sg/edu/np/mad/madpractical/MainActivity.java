@@ -17,10 +17,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-        String randNum = intent.getStringExtra("randomInt");
 
-        TextView headerText = findViewById(R.id.textView4);
-        headerText.setText("MAD " + randNum);
+        int position = intent.getIntExtra("POSITION", 0);
+        String username = intent.getStringExtra("USERNAME");
+        String description = intent.getStringExtra("DESCRIPTION");
+
+        TextView profileName = findViewById(R.id.profileName);
+        profileName.setText(username);
+
+        TextView profileDesc = findViewById(R.id.profileDesc);
+        profileDesc.setText(description);
 
         Button followBtn = findViewById(R.id.button4);
         followBtn.setOnClickListener(new View.OnClickListener() {
